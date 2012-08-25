@@ -1,0 +1,16 @@
+%html
+  %head
+    %title #{feed.title} (#{feed.last_modified.to_date.to_s})
+    %meta{charset:"utf-8"}
+  %body
+    / %h1 Table of Contents
+    / %ul
+    /   - feed.entries.each do |entry|
+    /     / - feed.new_entries.each do |entry|
+    /     %li
+    /       %a{href: "#"+(Digest::SHA1.hexdigest entry.id)} #{entry.title} (#{entry.published.to_date.to_s})
+    - feed.new_entries.each do |entry|
+      %a{name: (Digest::SHA1.hexdigest entry.id)}
+      %h1{style: "page-break-before: always"}= entry.title
+      %p Published at #{entry.published.to_s}
+      = display_img_title(entry.summary)
